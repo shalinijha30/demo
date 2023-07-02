@@ -5,12 +5,12 @@ include "db.php";
  if(isset($_POST['login'])){
    $email=$_POST['email'];
    $pass=$_POST['password'];
-   $sql = "select * from  `student` where email='$email' and password='$pass'";
+   $sql = "select * from  `user` where email='$email' and password='$pass'";
    $query_run = mysqli_query($conn,$sql);
    if(mysqli_num_rows($query_run)>0){
      $_SESSION['email']=$email;
      $_SESSION['showlogin']=1;
-     
+     header("Location: disply.php");
    }
     else{
      echo "<script>alert('Please Enter correct email id and password ');
@@ -21,37 +21,38 @@ include "db.php";
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Login form</title>
-</head>
-<body> 
-    
-    <table>
-    <div class = "container">
-        <form method="POST" action="#">
-           
-        <tr>
-                <td><label for= "email">Email </label></td>
-                <td><input type= "email" id = "email" name= "email"></label></td>
-        
-        </tr>
-        <tr>
-                <td><label for= "pass">Password </label></td>
-                <td><input type= "pass" id = "pass" name= "pass"></label></td>
-            
-        </tr>
-        <tr>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Travel Recommendation System</title>
+    <!--- Bootstrap files-->
+    <link rel="stylesheet" type="text/css" href="bootstrap-4.4.1-dist/css/bootstrap.min.css">
+    <script src="bootstrap-4.4.1-dist/js/bootstrap.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="css.css">
+  </head>
+  <body>
+    <section id="Log-In">
+    <div class="box">
+      <span class="borderLine"></span>
+      <form action="new.php" method="post">
+        <h2>Log-in</h2>
+        <div class="inputBox">
+          <input type="text" name="email" required="required">
+          <span>Email</span>
+          <i></i>
+        </div>
+        <div class="inputBox">
+          <input type="Password" name="password" required="required">
+          <span>Password</span>
+          <i></i>
+        </div>
+        <div class="link">
 
-                <td><input type= "submit" id = "submit" name= "submit" ></td>
-            
-        </tr>
-
-        </form>
-    </tble>
-    </div>
-    
-</body>
+            <a href="form.php">For Register</a>
+          </div>
+          <input type="submit" name="login" value="Login"></input>
+      </form>
+  </div>
+  </section>
+  </body>
 </html>

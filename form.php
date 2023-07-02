@@ -4,6 +4,7 @@ global $valid_name,$valid_email,$valid_phone;
 if (isset($_POST['save'])) {  
     $name =$_POST['name'];
     $phone =$_POST['phone'];
+    $password =$_POST['password'];
     $email =$_POST['email']; 
 
     if(empty($_POST['name'])) {
@@ -17,6 +18,11 @@ if (isset($_POST['save'])) {
     } else{
         $valid_phone=$phone;
     }
+     if(empty($_POST['password'])) {
+       $phone_error = "Enter your password";
+    } else{
+        $valid_password=$password;
+    }
     if(empty($_POST['email'])) {
        $email_error = "Enter your Email";
    }else{
@@ -26,9 +32,10 @@ if (isset($_POST['save'])) {
 
 echo $name;
 echo $phone;
+echo $password;
 echo $email;
-if($valid_name!="" && $valid_email!="" && $valid_phone!=""){
-    $sql= mysqli_query($conn,"INSERT INTO student(name,phone,email)VALUES('$name','$phone','$email')")or die(mysqli_error($con));
+if($valid_name!="" && $valid_email!="" && $valid_phone!="" && $valid_password!=""){
+    $sql= mysqli_query($conn,"INSERT INTO user(name,phone,password,email)VALUES('$name','$phone','$password','$email')")or die(mysqli_error($con));
     header("location:disply.php");
 }
 
@@ -57,6 +64,12 @@ if($valid_name!="" && $valid_email!="" && $valid_phone!=""){
                 <td> <label for="phone">Phone no.</label></td>
                 <td><input type="phone" id="phone" name="phone"></td>
                 <span><?php  if(isset($phone_error)) echo $phone_error;?></span>
+           
+            </tr>
+            <tr>
+                <td> <label for="password">Password</label></td>
+                <td><input type="password" id="password" name="password"></td>
+                <span><?php  if(isset($password_error)) echo $pawword_error;?></span>
            
             </tr>
             <tr>
